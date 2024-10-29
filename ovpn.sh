@@ -32,7 +32,7 @@ do
                 openvpn3 sessions-list
 
                 # Choose a profile to disconnect from
-                read -p "Which .ovpn prfile are we disconnecting from now: " file
+                read -p "Which .ovpn profile are we disconnecting from now: " file
                 openvpn3 session-manage --disconnect --config "$file"
 
                 sleep 3s
