@@ -21,9 +21,14 @@ do
                 echo "Already active sessions if any:"
                 openvpn3 sessions-list
                 echo ""
-                # Choose a file to connect to
-                read -p "Which .ovpn profile do we connect to: " file
-		openvpn3 session-start --config "$file"
+                
+		# Choose a file to connect to
+		
+		echo "Choose a file to connect to: "
+		PS3="Enter number of file to use, ^C to exit: "
+		select file in *.ovpn; do
+			openvpn3 session-start --config "$file"
+		done
                 ;;
         "Disconnect")
                 echo "Let's terminate a session:"
@@ -32,12 +37,13 @@ do
                 openvpn3 sessions-list
 
                 # Choose a profile to disconnect from
-                read -p "Which .ovpn profile are we disconnecting from now: " file
-                openvpn3 session-manage --disconnect --config "$file"
-
-                sleep 3s
-                openvpn3 sessions-list
+                echo "Choose a file to disconnect from: "
+                PS3="Enter number of file to use, ^C to exit: "
+                select file in *.ovpn; do
+                        openvpn3 session-manage --disconnect --config "$file"
+                done
                 ;;
+
         "Current Tunnels")
                 echo "Lets view current open Tunnels: $REPLY which is $opt"
                 echo ""
